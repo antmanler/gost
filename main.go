@@ -16,16 +16,14 @@ const (
 	LDEBUG
 )
 
-const (
-	Version = "2.0-20151106"
-)
-
 var (
 	listenAddr, forwardAddr strSlice
 	pv                      bool // print version
 
 	listenArgs  []Args
 	forwardArgs []Args
+	version     = "2.0-20151106"
+	gitRev      = "dev"
 )
 
 func init() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 	if pv {
-		fmt.Println("gost", Version)
+		fmt.Println("gost", version, "git:", gitRev)
 		return
 	}
 
@@ -53,6 +51,7 @@ func main() {
 	if len(listenArgs) == 0 {
 		glog.Exitln("no listen addr")
 	}
+	glog.Infof("gost %s(git: %s) started", version, gitRev)
 
 	var wg sync.WaitGroup
 	for _, args := range listenArgs {

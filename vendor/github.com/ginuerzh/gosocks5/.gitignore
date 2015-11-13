@@ -6,8 +6,6 @@
 # Folders
 _obj
 _test
-release
-debian
 
 # Architecture specific extensions/prefixes
 *.[568vq]
@@ -23,6 +21,3 @@ _testmain.go
 
 *.exe
 *.test
-
-build/
-release/

@@ -32,7 +32,7 @@ func handleHttpRequest(req *http.Request, conn net.Conn, arg Args) {
 	if (username != "" && u != username) || (password != "" && p != password) {
 		resp := "HTTP/1.1 407 Proxy Authentication Required\r\n" +
 			"Proxy-Authenticate: Basic realm=\"gost\"\r\n" +
-			"Proxy-Agent: gost/" + Version + "\r\n\r\n"
+			"Proxy-Agent: gost/" + version + "\r\n\r\n"
 
 		if _, err := conn.Write([]byte(resp)); err != nil {
 			glog.V(LWARNING).Infoln(err)
@@ -48,7 +48,7 @@ func handleHttpRequest(req *http.Request, conn net.Conn, arg Args) {
 		glog.V(LWARNING).Infoln("[http] CONNECT", req.Host, err)
 
 		b := []byte("HTTP/1.1 503 Service unavailable\r\n" +
-			"Proxy-Agent: gost/" + Version + "\r\n\r\n")
+			"Proxy-Agent: gost/" + version + "\r\n\r\n")
 		glog.V(LDEBUG).Infoln(string(b))
 		conn.Write(b)
 		return
@@ -57,7 +57,7 @@ func handleHttpRequest(req *http.Request, conn net.Conn, arg Args) {
 
 	if req.Method == "CONNECT" {
 		b := []byte("HTTP/1.1 200 Connection established\r\n" +
-			"Proxy-Agent: gost/" + Version + "\r\n\r\n")
+			"Proxy-Agent: gost/" + version + "\r\n\r\n")
 		glog.V(LDEBUG).Infoln(string(b))
 
 		if _, err := conn.Write(b); err != nil {
